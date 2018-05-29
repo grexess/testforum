@@ -1,0 +1,19 @@
+<template name="content">
+    <section id="Content">
+        <div class="w3-container">
+            <h1>Themen</h1>
+            <!-- Topics navigation -->
+            <div class="w3-bar w3-blue">
+
+                    {{#each topics}}
+
+                    <li class="w3-bar me-listitem">
+                            <a class="w3-bar-item w3-button">{{ name }}</a>
+                    </li>
+                    {{/each}}
+
+
+            </div>
+        </div>
+    </section>
+</template>
