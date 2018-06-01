@@ -24,11 +24,6 @@ Meteor.startup(() => {
   }
 });
 
-Meteor.publish('topics', function () {
-  console.log('topics published');
-  return Topics.find();
-});
-
 Meteor.publish('topic', function (id) {
   check(id, String);
   return Topics.find({
@@ -39,6 +34,13 @@ Meteor.publish('topic', function (id) {
 Meteor.publish('threads', function (topicId) {
   console.log('Server: ' + topicId);
   return Threads.find({
+    //topicId: topicId
+  });
+});
+
+Meteor.publish('topics', function (topicId) {
+  console.log('Server: ' + topicId);
+  return Topics.find({
     //topicId: topicId
   });
 });
@@ -87,5 +89,15 @@ Meteor.methods({
     });
     alert(x);
     return x;
+  },
+
+  allTopics: function () {
+    console.log('topics requested');
+
+    //here we can collect anything
+    var Discussions = {};
+    Discussions.id="1";
+    Discussions.topics = Topics.find({}).fetch();
+    return Discussions;
   }
 })

@@ -13,8 +13,8 @@ import {
 } from '../../../imports/api/collections.js';
 
 Template.content.onCreated(function (id) {
- 
-  Meteor.subscribe('topics');
+
+  //Meteor.subscribe('topics');
   /*
   Meteor.subscribe('posts');
   console.log("Collections subscribed");
@@ -22,28 +22,13 @@ Template.content.onCreated(function (id) {
 
 });
 
-Template.content.helpers({
-
-  getThreads: function (id) {
-
-    console.log(id);
-    /*
-    Meteor.call('getThreads', id, function (error, result) {
-      if(result){
-        alert('result');
-      }
-      if(error){
-        alert('error');
-      }
-    });*/
-  }
-})
-
-
 if (Meteor.isClient) {
+
   Template.content.helpers({
-    topics() {
-      return Topics.find({});
+    allTopics: function () {
+      console.log("request allTopics")
+      var Discussions = ReactiveMethod.call("allTopics");
+      return Discussions.topics;
     }
   })
 }
