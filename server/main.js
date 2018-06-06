@@ -24,46 +24,12 @@ Meteor.startup(() => {
   }
 });
 
-Meteor.publish('topic', function (id) {
-  check(id, String);
-  return Topics.find({
-    _id: id
-  });
-});
-
-Meteor.publish('threads', function (topicId) {
-  console.log('Server: ' + topicId);
-  return Threads.find({
-    //topicId: topicId
-  });
-});
-
-Meteor.publish('topics', function (topicId) {
-  console.log('Server: ' + topicId);
-  return Topics.find({
-    //topicId: topicId
-  });
-});
-
-Meteor.publish('thread', function (id) {
-  check(id, String);
-  return Threads.find({
-    _id: id
-  });
-});
-
-Meteor.publish('posts', function (threadId) {
-  return Posts.find({
-    threadId: threadId
-  });
-});
-
-Meteor.publish('post', function (id) {
-  check(id, String);
-  return Posts.find({
-    _id: id
-  });
-});
+/*allow CRUD actions for this collection on client side */
+Threads.allow({
+  'insert': function (thread) {
+    return true;
+  }
+})
 
 Meteor.methods({
   createThread: function (topicId, content) {
@@ -96,8 +62,19 @@ Meteor.methods({
 
     //here we can collect anything
     var Discussions = {};
-    Discussions.id="1";
+    Discussions.id = "1";
+    debugger;
     Discussions.topics = Topics.find({}).fetch();
+
+    var i;
+    for (i = 0; i < Discussions.topics.length; i++) {
+      threads = Threads.find({
+        topicId: Discussions.topics[i]._id
+      }).fetch();
+      Discussions.topics[i].threads  =  Threads.find({
+        topicId: Discussions.topics[i]._id
+      }).fetch();
+    }
     return Discussions;
   }
 })
