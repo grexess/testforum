@@ -31,6 +31,12 @@ Threads.allow({
   }
 })
 
+Posts.allow({
+  'insert': function (post) {
+    return true;
+  }
+})
+
 Meteor.methods({
   createThread: function (topicId, content) {
     var thread = {
@@ -66,14 +72,24 @@ Meteor.methods({
     debugger;
     Discussions.topics = Topics.find({}).fetch();
 
-    var i;
+    var i, j;
     for (i = 0; i < Discussions.topics.length; i++) {
-      threads = Threads.find({
+
+     
+      Discussions.topics[i].threads = Threads.find({
         topicId: Discussions.topics[i]._id
       }).fetch();
-      Discussions.topics[i].threads  =  Threads.find({
-        topicId: Discussions.topics[i]._id
-      }).fetch();
+
+
+
+      for (j = 0; j < Discussions.topics[i].threads.length; j++) {
+
+        console.log('loop to posts' + Discussions.topics[i].threads.length);
+        console.log('post:' + Discussions.topics[i].threads[j]._id)
+        Discussions.topics[i].threads[j].posts = Posts.find({
+          threadId: Discussions.topics[i].threads[j]._id
+        }).fetch();
+      }
     }
     return Discussions;
   }

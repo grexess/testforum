@@ -26,7 +26,7 @@ Template.content.events({
   'click .topicsBtn' (event) {
     event.preventDefault();
 
-    var topicId = event.currentTarget.id.substring(3)
+    var topicId = event.currentTarget.id.substring(3);
 
     Threads.insert({
       //author: user.emails[0].address,
@@ -39,6 +39,26 @@ Template.content.events({
       };
       if (error) {
         Bert.alert('Fehler beim Speichern', 'danger');
+      };
+    });
+  },
+
+  'click .postBtn' (event) {
+    event.preventDefault();
+
+    var threadId = event.currentTarget.id.substring(3)
+
+    Posts.insert({
+      //author: user.emails[0].address,
+      createdAt: new Date(),
+      threadId: threadId,
+      content: $('#inp' + threadId).val()
+    }, function (error, result) {
+      if (result) {
+        Bert.alert('Post gespeichert', 'success');
+      };
+      if (error) {
+        Bert.alert('Fehler beim Speichern des Posts', 'danger');
       };
     });
   }

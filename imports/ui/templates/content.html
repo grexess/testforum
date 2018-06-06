@@ -33,11 +33,29 @@
 
 <template name="threads">
     <ul class="w3-ul">
-        {{#each threads}}
+      {{#each threads}}
         <li class="w3-bar w3-red">
-            <h3>{{ content}}</h3>
-        </li>
-        <li class="w3-bar me-listitem  w3-green">
+            <div class="w3-bar-item">
+                <p>{{ content}}</p>
+            </div>
+            <div class="w3-bar-item">
+                <input placeholder="Thementitel" class="w3-input w3-border w3-round" id="inp{{ _id }}" type="text">
+            </div>
+            <div class="postBtn w3-bar-item" id="btn{{ _id }}">
+                <button class="w3-button w3-teal">Neuer Post</button>
+            </div>
+            {{> posts}}
+        </li> {{/each}} 
+    </ul>
+</template>
+
+<template name="posts">
+    <ul class="w3-ul">
+        {{#each posts}}
+        <li class="w3-bar w3-gray">
+            <div class="w3-bar-item">
+                <p>{{ content}}</p>
+            </div>
         </li> {{/each}}
     </ul>
 </template>
