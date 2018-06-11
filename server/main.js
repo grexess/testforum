@@ -3,40 +3,49 @@ import {
 } from 'meteor/meteor';
 
 import {
-  Topics
+  Forum
 } from '../imports/api/collections.js';
 
-import {
-  Threads
-} from '../imports/api/collections.js';
-
-import {
-  Posts
-} from '../imports/api/collections.js';
+Forum.allow({
+  'insert': function (userId, doc) {
+    /* user and doc checks ,
+    return true to allow insert */
+    return true;
+  },
+  'remove': function (userId, doc) {
+    /* user and doc checks ,
+    return true to allow insert */
+    return true;
+  },
+  'update': function (userId, doc) {
+    /* user and doc checks ,
+    return true to allow insert */
+    return true;
+  }
+});
 
 Meteor.startup(() => {
-  if (Topics.find().count() === 0) {
-    _.each(['MadEast', 'Andere Events', 'Sonstiges'], function (topicName) {
-      Topics.insert({
-        name: topicName
+  if (Forum.find().count() === 0) {
+    _.each(['MadEast', 'Andere Events', 'Sonstiges'], function (forumName) {
+      Forum.insert({
+        name: forumName
       });
     });
   }
 });
 
+Meteor.publish('forum', function () {
+  return Forum.find({});
+});
+
 /*allow CRUD actions for this collection on client side */
-Threads.allow({
+Forum.allow({
   'insert': function (thread) {
     return true;
   }
 })
 
-Posts.allow({
-  'insert': function (post) {
-    return true;
-  }
-})
-
+/*
 Meteor.methods({
   createThread: function (topicId, content) {
     var thread = {
@@ -93,4 +102,4 @@ Meteor.methods({
     }
     return Discussions;
   }
-})
+})*/

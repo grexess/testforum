@@ -5,9 +5,8 @@
             <!-- Topics navigation -->
             <div class="w3-bar">
                 <ul class="w3-ul">
-                    {{#each allTopics}}
-                    <!-- {{#each topics}} -->
-                    <li class="w3-bar w3-blue">
+                    {{#each forum}}
+                    <li class="w3-bar">
                         <h3>
                             <a class="w3-bar-item w3-button">{{ name }}</a>
                         </h3>
@@ -20,42 +19,12 @@
                                 <button class="w3-button w3-teal">Neues Thema</button>
                             </div>
                         </div>
-                        {{> threads}}
                     </li>
-                    <li class="w3-bar me-listitem  w3-green">
+                    <li class="w3-bar me-listitem">
                     </li>
                     {{/each}}
                 </ul>
             </div>
         </div>
     </section>
-</template>
-
-<template name="threads">
-    <ul class="w3-ul">
-      {{#each threads}}
-        <li class="w3-bar w3-red">
-            <div class="w3-bar-item">
-                <p>{{ content}}</p>
-            </div>
-            <div class="w3-bar-item">
-                <input placeholder="Thementitel" class="w3-input w3-border w3-round" id="inp{{ _id }}" type="text">
-            </div>
-            <div class="postBtn w3-bar-item" id="btn{{ _id }}">
-                <button class="w3-button w3-teal">Neuer Post</button>
-            </div>
-            {{> posts}}
-        </li> {{/each}} 
-    </ul>
-</template>
-
-<template name="posts">
-    <ul class="w3-ul">
-        {{#each posts}}
-        <li class="w3-bar w3-gray">
-            <div class="w3-bar-item">
-                <p>{{ content}}</p>
-            </div>
-        </li> {{/each}}
-    </ul>
 </template>
