@@ -9,17 +9,16 @@ Template.content.onCreated(function () {
   Meteor.subscribe('forum');
 });
 
+
 if (Meteor.isClient) {
 
   Template.content.helpers({
     forum() {
       return Forum.find({});
-    },
+    }
   });
+
 }
-
-
-
 
 Template.content.events({
 
@@ -29,16 +28,12 @@ Template.content.events({
     var topicId = event.currentTarget.id.substring(3);
 
     var objToAdd = {
-      threads: [
-        {
           _id: Random.id(),
           content: $('#inp' + topicId).val()
-        }
-      ]
-    };
+        };
 
     Forum.update({ _id: topicId }, {
-      $set: objToAdd,
+      $push: {threads: objToAdd}
     }, function (error, result) {
       if (result) {
         Bert.alert('Gespeichert', 'success');
@@ -46,42 +41,29 @@ Template.content.events({
       if (error) {
         Bert.alert('Fehler beim Speichern', 'danger');
       };
-    });
+    });  
+  },
+
+  'click .postBtn'(event) {
+    event.preventDefault();
+
+    var topicId = event.currentTarget.id.substring(3);
+
+    var objToAdd = {
+          _id: Random.id(),
+          content: $('#inp' + topicId).val()
+        };
+
+    Forum.update({ _id: topicId }, {
+      $push: {threads: objToAdd}
+    }, function (error, result) {
+      if (result) {
+        Bert.alert('Gespeichert', 'success');
+      };
+      if (error) {
+        Bert.alert('Fehler beim Speichern', 'danger');
+      };
+    });  
   }
 
-  /*
-  Forum.insert({
-    //author: user.emails[0].address,
-    createdAt: new Date(),
-    topicId: topicId,
-    content: $('#inp' + topicId).val()
-  }, function (error, result) {
-    if (result) {
-      Bert.alert('Gespeichert', 'success');
-    };
-    if (error) {
-      Bert.alert('Fehler beim Speichern', 'danger');
-    };
-  });
-},
-
-'click .postBtn' (event) {
-  event.preventDefault();
-
-  var threadId = event.currentTarget.id.substring(3)
-
-  Posts.insert({
-    //author: user.emails[0].address,
-    createdAt: new Date(),
-    threadId: threadId,
-    content: $('#inp' + threadId).val()
-  }, function (error, result) {
-    if (result) {
-      Bert.alert('Post gespeichert', 'success');
-    };
-    if (error) {
-      Bert.alert('Fehler beim Speichern des Posts', 'danger');
-    };
-  });
-}*/
 });

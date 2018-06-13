@@ -10,21 +10,35 @@
                         <h3>
                             <a class="w3-bar-item w3-button">{{ name }}</a>
                         </h3>
-                        <br>
-                        <div class="w3-bar">
-                            <div class="w3-bar-item">
-                                <input placeholder="Thementitel" class="w3-input w3-border w3-round" id="inp{{ _id }}" type="text">
-                            </div>
-                            <div class="topicsBtn w3-bar-item" id="btn{{ _id }}">
-                                <button class="w3-button w3-teal">Neues Thema</button>
-                            </div>
+                        <div class="topicsBtn w3-bar-item" id="btn{{ _id }}">
+                            <button class="w3-button w3-gray">Neues Thema</button>
                         </div>
-                    </li>
-                    <li class="w3-bar me-listitem">
+                        <div class="w3-bar-item">
+                            <input placeholder="Thementitel" class="w3-input w3-border w3-round" id="inp{{ _id }}" type="text">
+                        </div>
+                        <div class="w3-bar">
+                            {{> threadtemplate}}
+                        </div>
                     </li>
                     {{/each}}
                 </ul>
             </div>
         </div>
     </section>
+</template>
+
+
+<template name="threadtemplate">
+    <ul class="w3-ul">
+        {{#each threads}}
+        <li class="w3-bar">
+            <div class="w3-bar-item postBtn">
+                <button class="w3-button w3-teal">Antworten</button>
+            </div>
+            <div class="w3-bar-item">
+                {{ content}}
+            </div>
+        </li>
+        {{/each}}
+    </ul>
 </template>
