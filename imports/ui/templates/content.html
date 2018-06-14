@@ -1,21 +1,26 @@
 <template name="content">
+
+    {{> login}} {{> register}}
+
     <section id="Content">
         <div class="w3-container">
-            <h1>Themen</h1>
             <!-- Topics navigation -->
             <div class="w3-bar">
-                <ul class="w3-ul">
+                <ul class="">
                     {{#each forum}}
                     <li class="w3-bar">
                         <h3>
-                            <a class="w3-bar-item w3-button">{{ name }}</a>
+                            <div class="w3-bar-item w3-text-blue">{{ name }}</div>
                         </h3>
-                        <div class="topicsBtn w3-bar-item" id="btn{{ _id }}">
-                            <button class="w3-button w3-gray">Neues Thema</button>
-                        </div>
+
+                        {{#if currentUser}}
+
+                        <i class="topicsBtn w3-bar-ite fa fa-plus w3-text-blue" id="btn{{ _id }}"></i>
+
                         <div class="w3-bar-item">
-                            <input placeholder="Thementitel" class="w3-input w3-border w3-round" id="inp{{ _id }}" type="text">
+                            <input placeholder="Neuer Kommentar" class="w3-input w3-border-blue" id="inp{{ _id }}" type="text">
                         </div>
+                        {{/if}}
                         <div class="w3-bar">
                             {{> threadtemplate}}
                         </div>
@@ -27,14 +32,15 @@
     </section>
 </template>
 
-
 <template name="threadtemplate">
-    <ul class="w3-ul">
+    <ul class="">
         {{#each threads}}
         <li class="w3-bar">
+            {{#if currentUser}}
             <div class="w3-bar-item postBtn">
-                <button class="w3-button w3-teal">Antworten</button>
+                <i class="fa fa-reply"></i>
             </div>
+            {{/if}}
             <div class="w3-bar-item">
                 {{ content}}
             </div>

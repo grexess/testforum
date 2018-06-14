@@ -1,4 +1,5 @@
 import './content.html';
+import './login.html';
 
 import {
   Forum
