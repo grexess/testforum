@@ -2,7 +2,7 @@ import './login.html';
 
 Template.login.events({
 
-    'click #login' (event) {
+    'click .dologin' (event) {
         event.preventDefault();
         var email = $('[name=email]').val();
         var password = $('[name=password]').val();
@@ -14,6 +14,18 @@ Template.login.events({
                 $('#id01').hide();
             }
         });
+        $('#id01').hide();
+    },
+
+    'click .doregister' (event) {
+        event.preventDefault();
+        var email = $('#regmail').val();
+        var password = $('#regpwd').val();
+        Accounts.createUser({
+            email: email,
+            password: password
+        });
+        $('#id02').hide();
     },
 
     'click .gologin' (event) {

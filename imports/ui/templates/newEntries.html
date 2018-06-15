@@ -1,0 +1,35 @@
+<template name="newEntries">
+    <!--  <div id="newThread" class="w3-modal w3-animate-left">
+        <div class="w3-modal-content">
+            
+        </div>
+    </div> -->
+
+    <div id="newThread" class="w3-modal w3-animate-left">
+        <div class="w3-modal-content">
+
+            <div class="w3-container w3-card-4">
+                <h2 class="w3-text-blue">Neuer Beitrag zu <b><span id="threadName"></span></b></h2>
+                <input placeholder="Was ich sagen will ..." class="w3-input w3-border-blue w3-bar-item" id="newThreadInput" type="text">
+                <div class="w3-bar w3-margin w3-bar">
+                    <button class="w3-button w3-blue w3-bar-item w3-margin newThreadSend" id="threadId">Sag es</button>
+                    <button class="w3-button w3-gray w3-bar-item w3-margin newThreadClose">Doch nicht</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="newPost" class="w3-modal w3-animate-left">
+            <div class="w3-modal-content">
+    
+                <div class="w3-container w3-card-4">
+                    <h2 class="w3-text-blue">Antwort auf <b><span id="postName"></span></b></h2>
+                    <input placeholder="Was ich sagen will ..." class="w3-input w3-border-blue w3-bar-item" id="newPostInput" type="text">
+                    <div class="w3-bar w3-margin w3-bar">
+                        <button class="w3-button w3-blue w3-bar-item w3-margin newPostSend" id="postId">Sag es</button>
+                        <button class="w3-button w3-gray w3-bar-item w3-margin newPostClose">Doch nicht</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</template>

@@ -23,40 +23,18 @@ if (Meteor.isClient) {
 
 Template.content.events({
 
-  'click .topicsBtn'(event) {
-    event.preventDefault();
-
-    var topicId = event.currentTarget.id.substring(3);
-
-    var objToAdd = {
-          _id: Random.id(),
-          content: $('#inp' + topicId).val()
-        };
-
-    Forum.update({ _id: topicId }, {
-      $push: {threads: objToAdd}
-    }, function (error, result) {
-      if (result) {
-        Bert.alert('Gespeichert', 'success');
-      };
-      if (error) {
-        Bert.alert('Fehler beim Speichern', 'danger');
-      };
-    });  
-  },
-
   'click .postBtn'(event) {
     event.preventDefault();
 
     var topicId = event.currentTarget.id.substring(3);
 
     var objToAdd = {
-          _id: Random.id(),
-          content: $('#inp' + topicId).val()
-        };
+      _id: Random.id(),
+      content: $('#inp' + topicId).val()
+    };
 
     Forum.update({ _id: topicId }, {
-      $push: {threads: objToAdd}
+      $push: { threads: objToAdd }
     }, function (error, result) {
       if (result) {
         Bert.alert('Gespeichert', 'success');
@@ -64,7 +42,20 @@ Template.content.events({
       if (error) {
         Bert.alert('Fehler beim Speichern', 'danger');
       };
-    });  
-  }
+    });
+  },
 
+  'click .newThread'(event) {
+    event.preventDefault();
+    $('#newThread').show();
+    $('#threadName').text(event.currentTarget.dataset.name);
+    $('#threadId').data("id", event.currentTarget.dataset.id);
+  },
+
+  'click .newPost'(event) {
+    event.preventDefault();
+    $('#newPost').show();
+    $('#postId').data("threadId", event.currentTarget.dataset.threadid);
+    $('#postId').data("forumId", event.currentTarget.dataset.forumid);
+  }
 });

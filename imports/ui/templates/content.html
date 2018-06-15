@@ -1,6 +1,6 @@
 <template name="content">
 
-    {{> login}} {{> register}}
+    {{> login}} {{> register}} {{> newEntries}} 
 
     <section id="Content">
         <div class="w3-container">
@@ -15,10 +15,8 @@
 
                         {{#if currentUser}}
 
-                        <i class="topicsBtn w3-bar-ite fa fa-plus w3-text-blue" id="btn{{ _id }}"></i>
-
-                        <div class="w3-bar-item">
-                            <input placeholder="Neuer Kommentar" class="w3-input w3-border-blue" id="inp{{ _id }}" type="text">
+                        <div class="w3-bar">
+                            <button class="w3-button w3-blue newThread" data-id="{{ _id }}" data-name="{{ name }}"><i class="fa fa-plus w3-padding-small"></i>Neuer Kommentar</button>
                         </div>
                         {{/if}}
                         <div class="w3-bar">
@@ -37,8 +35,8 @@
         {{#each threads}}
         <li class="w3-bar">
             {{#if currentUser}}
-            <div class="w3-bar-item postBtn">
-                <i class="fa fa-reply"></i>
+            <div class="w3-bar-item newPost" data-threadid="{{ _id }}" data-forumid="{{../_id}}">
+                <i class="fa fa-reply " ></i>
             </div>
             {{/if}}
             <div class="w3-bar-item">
