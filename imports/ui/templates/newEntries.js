@@ -23,7 +23,9 @@ Template.newEntries.events({
 
         var objToAdd = {
             _id: Random.id(),
-            content: $('#newThreadInput').val()
+            content: $('#newThreadInput').val(),
+            createdBy: Meteor.user().emails[0].address,
+            createdAt: new Date()
         };
 
         Forum.update({ _id: topicId }, {
@@ -51,9 +53,22 @@ Template.newEntries.events({
         //current Thread
         var currThread = $.grep(threads, function (e) { return e._id == threadId; })[0];
         //add new field to current thread
-        currThread.comment = $('#newPostInput').val();
 
+        var objToAdd = {
+            _id: Random.id(),
+            content: $('#newPostInput').val(),
+            createdBy: Meteor.user().emails[0].address,
+            createdAt: new Date()
+        };
 
+        var currPosts = currThread.comment;
+
+        if (currPosts) {
+            currPosts.push(objToAdd)
+        }else{
+          //first post
+            currThread.comment = [objToAdd];
+        }
 
         Forum.update({ _id: forumId }, {
             $set: { threads: threads }

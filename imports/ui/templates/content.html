@@ -1,6 +1,6 @@
 <template name="content">
 
-    {{> login}} {{> register}} {{> newEntries}} 
+    {{> login}} {{> register}} {{> newEntries}}
 
     <section id="Content">
         <div class="w3-container">
@@ -10,14 +10,16 @@
                     {{#each forum}}
                     <li class="w3-bar">
                         <h3>
-                            <div class="w3-bar-item w3-text-blue">{{ name }}</div>
+                            <div class="w3-bar-item w3-text-indigo">{{ name }}</div>
                         </h3>
 
-                        {{#if currentUser}}
 
-                        <div class="w3-bar">
-                            <button class="w3-button w3-blue newThread" data-id="{{ _id }}" data-name="{{ name }}"><i class="fa fa-plus w3-padding-small"></i>Neuer Kommentar</button>
+                        {{#if currentUser}}
+                        <div class="w3-bar w3-margin">
+                            <button class="w3-button w3-blue newThread" data-id="{{ _id }}" data-name="{{ name }}">
+                                <i class="fa fa-plus"></i>Neuer Kommentar</button>
                         </div>
+
                         {{/if}}
                         <div class="w3-bar">
                             {{> threadtemplate}}
@@ -31,18 +33,47 @@
 </template>
 
 <template name="threadtemplate">
-    <ul class="">
+    <ul class="w3-ul">
         {{#each threads}}
-        <li class="w3-bar">
-            {{#if currentUser}}
-            <div class="w3-bar-item newPost" data-threadid="{{ _id }}" data-forumid="{{../_id}}">
-                <i class="fa fa-reply " ></i>
+        <li style="border-bottom: 0px" class="w3-padding-small">
+            <div class="w3-card-4 w3-light-grey">
+                <div class="w3-padding-small w3-large w3-text-blue">
+                    {{ content}}
+                </div>
+                <div class="w3-bar w3-padding">
+                    {{#if currentUser}}
+                    <div class="newPost w3-bar-item w3-padding-small w3-blue w3-hover-gray" data-threadid="{{ _id }}" data-forumid="{{../_id}}">
+                        Antworten
+                    </div>
+                    {{/if}}
+                    <div class="w3-bar-item w3-padding-small"><b>{{ createdBy }}</b></div>
+                    <div class="w3-bar-item w3-padding-small"> {{formatDate createdAt }}</div>
+
+                </div>
             </div>
-            {{/if}}
-            <div class="w3-bar-item">
-                {{ content}}
-            </div>
+            <div class="w3-bar w3-padding">
+                    {{> posttemplate}}
+                </div>
         </li>
         {{/each}}
     </ul>
 </template>
+
+<template name="posttemplate">
+        <ul class="w3-ul">
+            {{#each comment}}
+            <li style="border-bottom: 0px" class="w3-padding-small">
+                <div class="w3-card-4 w3-sand">
+                    <div class="w3-padding-small w3-large w3-text-blue">
+                        {{ content}}
+                    </div>
+                    <div class="w3-bar w3-padding">
+                        <div class="w3-bar-item w3-padding-small"><b>{{ createdBy }}</b></div>
+                        <div class="w3-bar-item w3-padding-small"> {{formatDate createdAt }}</div>
+    
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </template>

@@ -19,6 +19,8 @@ if (Meteor.isClient) {
     }
   });
 
+  
+
 }
 
 Template.content.events({
@@ -58,4 +60,9 @@ Template.content.events({
     $('#postId').data("threadId", event.currentTarget.dataset.threadid);
     $('#postId').data("forumId", event.currentTarget.dataset.forumid);
   }
+});
+
+Template.registerHelper('formatDate', function (date) {
+  //moment.locale('de');
+  return moment(date).format('llll');
 });
